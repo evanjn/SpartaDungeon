@@ -192,20 +192,36 @@ public class UIInventory : MonoBehaviour
 
     public void OnUseButton()
     {
-        if (selectedItem.item.type == ItemType.Equipable)
+        // 혹시라도 null이면 바로 종료 (안전장치)
+        if (selectedItem == null || selectedItem.item == null)
+            return;
+
+        // 1) 기존 회복 아이템 처리 (Health / Hunger)
+        for (int i = 0; i < selectedItem.item.cosumables.Length; i++)
         {
-            for (int i = 0; i < selectedItem.item.cosumables.Length; i++)
+            switch (selectedItem.item.cosumables[i].type)
             {
-                switch (selectedItem.item.cosumables[i].type)
-                {
-                    case ConsumableType.Health:
-                        condition.Heal(selectedItem.item.cosumables[i].value); break;
-                    case ConsumableType.Hunger:
-                        condition.Eat(selectedItem.item.cosumables[i].value); break;
-                }
+                case ConsumableType.Health:
+                    condition.Heal(selectedItem.item.cosumables[i].value);
+                    break;
+                case ConsumableType.Hunger:
+                    condition.Eat(selectedItem.item.cosumables[i].value);
+                    break;
             }
-            RemoveSelctedItem();
         }
+
+        // 2) SuperJump 처리 (SuperEgg 전용)
+        if (selectedItem.item.jumpBoost > 0f && selectedItem.item.duration > 0f)
+        {
+            // PlayerController 에서 만든 함수 호출
+            controller.ApplyJumpBoost(
+                selectedItem.item.jumpBoost,
+                selectedItem.item.duration
+            );
+        }
+
+        // 3) 아이템 1개 소비
+        RemoveSelctedItem();
     }
 
     public void OnDropButton()

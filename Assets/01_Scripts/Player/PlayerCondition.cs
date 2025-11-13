@@ -45,6 +45,7 @@ public class PlayerCondition : MonoBehaviour, IDamagable
         hunger.Add(amout);
     }
 
+
     public void Die()
     {
         Debug.Log("ав╬З╢ы.");
@@ -65,6 +66,5 @@ public class PlayerCondition : MonoBehaviour, IDamagable
         stamina.Subtract(amount);
         return true;
     }
-
 
 }

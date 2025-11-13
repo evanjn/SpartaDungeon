@@ -9,6 +9,12 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed;
     private Vector2 curMovementInput;
     public float jumpPower;
+
+    // ==== SuperJump용 추가 ====
+    public float jumpBoost = 5f;
+    private float defaultJumpPower;        // 기본 점프 힘 저장용
+    private Coroutine jumpBoostRoutine;    // 코루틴 중복 방지용
+
     public LayerMask groundLayerMask;
     private AnimatorHandler animatorHandler;
     [Header("Look")]
@@ -24,11 +30,10 @@ public class PlayerController : MonoBehaviour
     public Action inventory;
     private Rigidbody _rigidbody;
 
-    public float useStamina;
-
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        defaultJumpPower = jumpPower;
     }
 
     void Start()
@@ -86,11 +91,6 @@ public class PlayerController : MonoBehaviour
         if (context.phase == InputActionPhase.Started && IsGrounded())
         {
             _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
-
-            if (CharacterManager.Instance.Player.condition.UseStamina(useStamina))
-            {
-
-            }
         }
     }
 
@@ -140,5 +140,29 @@ public class PlayerController : MonoBehaviour
         bool toggle = Cursor.lockState == CursorLockMode.Locked;
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
         canLook = !toggle;
+    }
+
+    public void ApplyJumpBoost(float multiplier, float duration)
+    {
+        // 이미 버프가 켜져 있으면 먼저 종료
+        if (jumpBoostRoutine != null)
+        {
+            StopCoroutine(jumpBoostRoutine);
+        }
+
+        jumpBoostRoutine = StartCoroutine(JumpBoostCoroutine(multiplier, duration));
+    }
+
+    private IEnumerator JumpBoostCoroutine(float multiplier, float duration)
+    {
+        // 점프 힘을 배수만큼 증가
+        jumpPower = defaultJumpPower * multiplier;
+
+        // duration 동안 유지
+        yield return new WaitForSeconds(duration);
+
+        // 끝나면 원래 값으로 복구
+        jumpPower = defaultJumpPower;
+        jumpBoostRoutine = null;
     }
 }
