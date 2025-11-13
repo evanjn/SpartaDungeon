@@ -15,14 +15,14 @@ MonoBehaviour:
   displayName: SuperEgg
   description: Grants a Super Jump when eaten
   type: 2
-  icon: {fileID: 21300000, guid: 579e281f4ee61e04faf8fbc2b1845b3a, type: 3}
+  icon: {fileID: 21300000, guid: ae23a9c6aa9bca34caf3cb00db9401b0, type: 3}
   dropPrefabs: {fileID: 4561929453959755640, guid: ce4849a0effc7344e957033b7a9b1494, type: 3}
   canStack: 0
   maxStackAmout: 0
   cosumables:
   - type: 2
-    value: 220
-    duration: 10
+    value: 2
+    duration: 5
   equipPrefab: {fileID: 7932263141111875248, guid: 91def967809224544a9895cff276cc54, type: 3}
   jumpBoost: 0
   duration: 0

@@ -184,7 +184,7 @@ public class UIInventory : MonoBehaviour
             selectedItemStatValue.text += selectedItem.item.cosumables[i].value.ToString() + "\n";
         }
 
-        useButton.SetActive(selectedItem.item.type == ItemType.Equipable);
+        useButton.SetActive(selectedItem.item.type == ItemType.Consumable || selectedItem.item.type == ItemType.JumpBoost);
         equipButton.SetActive(selectedItem.item.type == ItemType.Equipable && !slots[index].equipped);
         unEquipButton.SetActive(selectedItem.item.type == ItemType.Equipable && slots[index].equipped);
         dropButton.SetActive(true);
@@ -192,35 +192,32 @@ public class UIInventory : MonoBehaviour
 
     public void OnUseButton()
     {
-        // 혹시라도 null이면 바로 종료 (안전장치)
         if (selectedItem == null || selectedItem.item == null)
             return;
 
-        // 1) 기존 회복 아이템 처리 (Health / Hunger)
+        // 모든 소비 효과 처리
         for (int i = 0; i < selectedItem.item.cosumables.Length; i++)
         {
-            switch (selectedItem.item.cosumables[i].type)
+            var c = selectedItem.item.cosumables[i];
+
+            switch (c.type)
             {
                 case ConsumableType.Health:
-                    condition.Heal(selectedItem.item.cosumables[i].value);
+                    condition.Heal(c.value);
                     break;
+
                 case ConsumableType.Hunger:
-                    condition.Eat(selectedItem.item.cosumables[i].value);
+                    condition.Eat(c.value);
+                    break;
+
+                case ConsumableType.JumpBoost:
+                    // SuperJump 적용 (Value = 배수, Duration = 지속시간)
+                    controller.ApplyJumpBoost(c.value, c.duration);
                     break;
             }
         }
 
-        // 2) SuperJump 처리 (SuperEgg 전용)
-        if (selectedItem.item.jumpBoost > 0f && selectedItem.item.duration > 0f)
-        {
-            // PlayerController 에서 만든 함수 호출
-            controller.ApplyJumpBoost(
-                selectedItem.item.jumpBoost,
-                selectedItem.item.duration
-            );
-        }
-
-        // 3) 아이템 1개 소비
+        // 아이템 1개 소비
         RemoveSelctedItem();
     }
 
