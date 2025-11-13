@@ -15,12 +15,12 @@ public class JumpTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider JumpingTarget)
     {
-        // 이 콜라이더가 달려있는 객체의 "리짓바디 주인"을 잡아온다
+
         Rigidbody rb = JumpingTarget.attachedRigidbody;
         if (rb == null) return;                  // 리짓바디 없으면 패스
-        if (!rb.CompareTag("Player")) return;    // 진짜 Player
+        if (!rb.CompareTag("Player")) return;    
 
-            // 기존 위쪽 속도는 없애고 위로 쏘기
+   
             Vector3 vel = rb.velocity;
             vel.y = 0f;             // 위로 날릴 때 기존 y속도 초기화(선택)
             rb.velocity = vel;

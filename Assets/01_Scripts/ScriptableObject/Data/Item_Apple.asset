@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2370fef259b86a542a1ae95db4eb63d9, type: 3}
+  m_Name: Item_Apple
+  m_EditorClassIdentifier: 
+  displayName: Apple
+  description: Crisp and shiny. You can eat it for health or wear it for style.
+  type: 0
+  icon: {fileID: 21300000, guid: 06e8fa84f4b21d34b9e068ad9d1be87e, type: 3}
+  dropPrefabs: {fileID: 4462725666301090915, guid: 57be5c0280d88f147bfd62fa73d561e7, type: 3}
+  canStack: 0
+  maxStackAmout: 0
+  cosumables:
+  - type: 0
+    value: 20
+  - type: 1
+    value: 20
+  equipPrefab: {fileID: 9115422752131747761, guid: 19e702cf180ed2e4894040d751d0775c, type: 3}

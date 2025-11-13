@@ -18,9 +18,8 @@ public class PlayerCondition : MonoBehaviour, IDamagable
     Condition stamina { get { return uICondition.stamina; } }
 
     public float noHungerHealthDecay;
-
     public event Action onTakeDamage;
-
+    public float useStamina;
     // Update is called once per frame
     void Update()
     {
@@ -66,4 +65,6 @@ public class PlayerCondition : MonoBehaviour, IDamagable
         stamina.Subtract(amount);
         return true;
     }
+
+
 }

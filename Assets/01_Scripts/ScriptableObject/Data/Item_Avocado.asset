@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2370fef259b86a542a1ae95db4eb63d9, type: 3}
+  m_Name: Item_Avocado
+  m_EditorClassIdentifier: 
+  displayName: Avocado
+  description: A ripe avocado that can be eaten or worn as a helmet.
+  type: 0
+  icon: {fileID: 21300000, guid: af2bd3c85e915cf4b867fc6da3a70ad8, type: 3}
+  dropPrefabs: {fileID: 8802078280392589215, guid: 6b500b1e77a5f104ea93d2928df979d3, type: 3}
+  canStack: 0
+  maxStackAmout: 0
+  cosumables:
+  - type: 0
+    value: 30
+  - type: 1
+    value: 10
+  equipPrefab: {fileID: 4548898680422224277, guid: 7527eb23fa23c45428481cd56aa8d2cb, type: 3}
